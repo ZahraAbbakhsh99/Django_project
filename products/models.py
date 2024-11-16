@@ -4,6 +4,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Category(models.Model):
+    parent_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
 
     class Meta:
