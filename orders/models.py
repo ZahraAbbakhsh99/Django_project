@@ -4,7 +4,7 @@ from users.models import User
 
 
 # Create your models here.
-ORDER_STATUS_CHOICES = [('PENDING', 'PENDING'), ('PAID', 'PAID'), ('SHIPPED', 'SHIPPED')]
+ORDER_STATUS_CHOICES = [('PENDING', 'pending'), ('PAID', 'paid'), ('SHIPPED', 'shipped')]
 
 
 class Order(models.Model):

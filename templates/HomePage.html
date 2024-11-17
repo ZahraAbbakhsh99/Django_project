@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+<body>
+    <h1>Wellcome To Our Market</h1>
+
+    <h2>Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.name }}</li>
+        {% empty %}
+            <li>There Aren't Any Categories</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Featured Products</h2>
+    <ul>
+        {% for product in featured_products %}
+            <li>{{ product.name }} - {{ product.price }} IRI</li>
+        {% empty %}
+            <li>There Aren't Any Products</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
