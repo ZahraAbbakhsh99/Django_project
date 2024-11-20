@@ -6,7 +6,7 @@ from .models import *
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'total_price', 'status',
-                    'status', 'order_date']
+                    'order_date', 'shipping_address']
     list_filter = ['id', 'status', 'order_date']
     search_fields = ('user__username', 'shipping_address')
 

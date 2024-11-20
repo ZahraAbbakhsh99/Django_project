@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">My Profile</h2>
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <h4>info </h4>
+                <p><strong>username: </strong> {{ user.username }}</p>
+                <p><strong>first name: </strong> {{ user.first_name }}</p>
+                <p><strong>last name: </strong> {{ user.last_name }}</p>
+                <p><strong>email: </strong> {{ user.email }}</p>
+                <p><strong>Date of membership: </strong> {{ user.date_joined|date:"Y-m-d H:i" }}</p>
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3">edit info</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

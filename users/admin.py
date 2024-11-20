@@ -7,8 +7,8 @@ from .models import *
 class UserAdmin(BaseUserAdmin):
     list_display = ['username', 'email', 'first_name', 'last_name', 'is_admin', 'is_customer']
     list_filter = ['username', 'email']
-    search_fields = ['username', 'email', 'first_name', 'last_name']
+    search_fields = ['username', 'email', 'last_name']
     ordering = ('username',)
 
 
-admin.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)

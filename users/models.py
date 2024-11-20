@@ -38,7 +38,7 @@ class User(AbstractUser):
     password = models.CharField(null=False, blank=False, max_length=128)
     first_name = models.CharField(null=False, blank=True, max_length=50)
     last_name = models.CharField(null=False, blank=True, max_length=50)
-    phone_name = models.CharField(null=False, blank=True, max_length=11)
+    phone_number = models.CharField(null=False, blank=True, max_length=11)
     is_admin = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
 

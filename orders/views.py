@@ -27,10 +27,10 @@ def add_to_card(request, product_id):
             order_item.quantity += 1
         else:
             messages.error(request, 'There is not enough product stock.')
-            return redirect('products/productdetail/<int:product_id>/', product_id=product_id)
+            return redirect('productdetail', product_id=product_id)
     order_item.save()
     messages.success(request, 'The product has been added to your cart')
-    return redirect('orders/cart/')
+    return redirect('cart')
 
 
 @login_required()
@@ -49,8 +49,26 @@ def checkout_view(request):
             messages.success(request, 'Your order has been registered. Please go to the payment page.')
             return redirect('paymentPage', order_id=order.id)
     else:
-        form = AdderssForm()
+        form = forms.AdderssForm()
     return render(request, 'CheckOut.html', {'form': form, 'order': order})
+
+
+@login_required()
+def user_order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('created_at')
+    return render(request, 'OrderHistoryView.html', {'orders': orders})
+
+
+@login_required()
+def confirm_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    if order.status == 'PENDING':
+        order.status = 'PAID'
+        order.save()
+    else:
+        return redirect('cart')
+
+    return render(request, 'OrderConfirmationView.html', {'order': order})
 
 
 
