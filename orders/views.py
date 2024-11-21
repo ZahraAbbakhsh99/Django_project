@@ -45,7 +45,7 @@ def checkout_view(request):
     order = Order.objects.filter(user=request.user, status='PENDING').first()
     if not order or not order.items.exists():
         messages.error(request, 'Your shopping cart is empty')
-        return redirect('cart/')
+        return redirect('cart')
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
