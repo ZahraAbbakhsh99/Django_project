@@ -34,6 +34,13 @@ def add_to_card(request, product_id):
 
 
 @login_required()
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(OrderItem, id=item_id, cart__user=request.user)
+    cart_item.delete()
+    return redirect("../cart")
+
+
+@login_required()
 def checkout_view(request):
     order = Order.objects.filter(user=request.user, status='PENDING').first()
     if not order or not order.items.exists():
@@ -47,7 +54,7 @@ def checkout_view(request):
             order.status = 'PENDING'
             order.save()
             messages.success(request, 'Your order has been registered. Please go to the payment page.')
-            return redirect('paymentPage', order_id=order.id)
+            return redirect('orderconfirmation', order_id=order.id)
     else:
         form = forms.AdderssForm()
     return render(request, 'CheckOut.html', {'form': form, 'order': order})

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+     <h1>results: </h1>
+
+    <p>results for "{{ query }}"</p>
+
+    <ul>
+        {% for product in products %}
+        <li>
+            <h3>{{ product.name }}</h3>
+            <p>category: {{ product.category.name }}</p>
+            <p>price: {{ product.price }}</p>
+            <p>{{ product.description }}</p>
+            <img src="{{ product.image }}" alt="{{ product.name }}" width="100">
+        </li>
+        {% empty %}
+        <p>No product found.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="../homepage/">Back to the home page</a>
+</body>
+</html>
