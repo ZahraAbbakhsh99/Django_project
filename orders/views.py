@@ -18,7 +18,8 @@ def card_view(request):
 def add_to_card(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     order, created = Order.objects.get_or_create(user=request.user, status='PENDING')
-    order_item, created = Order.objects.get_or_create(order=order, product=product)
+    order.save()
+    order_item, created = Order.objects.get_or_create(order=order.id, product=product.id)
     if created:
         order_item.quantity = 1
         order_item.unit_price = product.price

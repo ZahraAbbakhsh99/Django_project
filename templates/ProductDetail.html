@@ -8,11 +8,11 @@
 <body>
      <div class="container">
         <h1 class="my-4">{{ product.name }}</h1>
-        <img src="{{ product.image }}" class="img-fluid mb-3" alt="{{ product.name }}">
+        <img src="{{ product.image.url }}" class="img-fluid mb-3" alt="{{ product.name }}">
         <p>{{ product.description }}</p>
         <h4>Price: {{ product.price }} IRI</h4>
         <h5>Stock: {{ product.stock }}</h5>
-        <a href="../../orders/addtocard/<int:product_id>/" class="btn btn-primary">Add to Cart</a><br>
+        <a href={% url 'add_to_card' product_id=product.id %} class="btn btn-primary">Add to Cart</a><br>
     </div>
 </body>
 </html>

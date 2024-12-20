@@ -12,11 +12,15 @@
             {% for product in products %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
+                        {% for product in products %}
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text">{{ product.price }} IRI</p>
                             <a href="../productdetail" class="btn btn-primary">View Details</a><br>
+                            {% empty %}
+                            <li>There Aren't Any Products</li>
+                        {% endfor %}
                             <a href="../../profile">Back to profile</a>
                         </div>
                     </div>

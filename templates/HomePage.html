@@ -10,8 +10,13 @@
     <div class="container mt_5">
      <h1 class="text-center">Home Page</h1>
         <nav class="text-end">
-            <a href="../users/register/" class="btn btn-primary" target="_self">register</a>
-            <a href="../users/login/" class="btn btn-primary" target="_self">login</a>
+            {% if user.is_authenticated %}
+                <a href="../users/profile/" class="btn btn-primary" target="_self">profile</a>
+                <a href="../users/logout/" class="btn btn-primary" target="_self">logout</a>
+            {% else %}
+                <a href="../users/register/" class="btn btn-primary" target="_self">register</a>
+                <a href="../users/login/" class="btn btn-primary" target="_self">login</a>
+            {% endif %}
         </nav>
         <div class="mt-5">
             <h1>Wellcome To Our Market</h1>
@@ -39,10 +44,10 @@
                 {% endfor %}
             </ul>
 
-            <h3>Featured Products</h3>
+            <h3>Products</h3>
             <ul>
-                {% for product in featured_products %}
-                    <li>{{ product.name }} - {{ product.price }} IRI</li>
+                {% for product in products %}
+                    <li><a href="../products/productdetail/{{product.id}}" target="_self">{{ product.name }} - {{ product.price }} IRI </a></li>
                 {% empty %}
                     <li>There Aren't Any Products</li>
                 {% endfor %}

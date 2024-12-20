@@ -12,4 +12,3 @@ def category_view(request, category_name):
     category = get_object_or_404(Category, name=category_name)
     products = Product.objects.filter(category=category)
     return render(request, 'CategoryView.html', {'category': category, 'products': products})
-

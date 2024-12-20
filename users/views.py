@@ -13,9 +13,9 @@ def user_register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.is_customer = True
-            user.save()
-            login(request, user)
+            user.save(commit=True)
             messages.success(request, "Registration was successful.")
+            login(request, user)
             return redirect('home')
         else:
             messages.error(request, "Something went wrong.")
@@ -47,7 +47,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('home_page')
+    return redirect('../../homepage/')
 
 
 @login_required()

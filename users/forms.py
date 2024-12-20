@@ -35,7 +35,7 @@ class UserRegisterForm(UserCreationForm):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
-        email = self.cleaned_data("email")
+        email = self.cleaned_data["email"]
 
         if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already registered.")
