@@ -9,21 +9,27 @@
      <div class="container">
         <h1 class="my-4">your shopping cart</h1>
         <ul class="list-group">
-            {% for item in items %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ item.product.name }} - {{ item.quantity }} x {{ item.unit_price }} IRI
-                    <div>
-                        <a href="../removeitem/" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                </li>
-            {% empty %}
+            {% if not is_empty %}
+                {% for item in items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.product.name }} - {{ item.unit_price }} IRI
+                        <br> count: {{item.quantity}}
+                        <div>
+                            <a href="{% url 'add_to_card' item.product.id %}" class="btn btn-success btn-sm">more</a>
+                            <a href="{% url 'removeitem' order.id item.product.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
                 <li class="list-group-item">Your shopping cart is empty.</li>
-            {% endfor %}
+            {% endif %}
+
         </ul>
         <h4 class="mt-4">total cost: {{ order.total_price }} IRI</h4>
         <a href="#" class="btn btn-success mt-3">payment</a>
-         <a href="../checkout" class="btn btn-success mt-3">checkout</a><br><br>
-         <a href="../../users/profile">Back to profile</a>
+         <a href="{% url 'checkout' user.id %}" class="btn btn-success mt-3">checkout</a><br><br>
+         <a href="{% url 'user_profile' user.id %}">Back to profile</a><br>
+         <a href="{% url 'home' %}">Back to homepage</a>
     </div>
 </body>
 </html>

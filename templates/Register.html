@@ -11,14 +11,14 @@
         <h2 class="text-center">User Register</h2>
         <div class="card shadow mt-4">
             <div class="card-body">
-                <form method="post">
+                <form method="POST" >
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-success mt-3">Register</button>
                 </form>
                 <hr>
-                <p> Do you have an account? <a href="../login/">login</a></p>
-                <a href="../../homepage">Bake to homepage</a>
+                <p> Do you have an account? <a href="{% url 'login' %}">login</a></p>
+                <a href="{% url 'home' %}">Bake to homepage</a>
             </div>
         </div>
     </div>

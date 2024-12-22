@@ -17,11 +17,16 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text">{{ product.price }} IRI</p>
-                            <a href="../productdetail" class="btn btn-primary">View Details</a><br>
+                            <a href="{% url 'productdetail' product.id %}" class="btn btn-primary">View Details</a><br><br>
                             {% empty %}
                             <li>There Aren't Any Products</li>
                         {% endfor %}
-                            <a href="../../profile">Back to profile</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'user_profile' user.id %}">Back to profile</a>
+                        {% else %}
+                            <a href="{% url 'register' %}" class="btn btn-primary" target="_self">register</a>
+                            <a href="{% url 'login' %}" class="btn btn-primary" target="_self">login</a>
+                        {% endif %}
                         </div>
                     </div>
                 </div>

@@ -34,25 +34,25 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 messages.success(request, "You have successfully logged in.")
-                return redirect('../profile/')
+                return redirect('user_profile', user_id=user.id)
             else:
                 messages.error(request, "Your account is inactive.")
 
         else:
             messages.error(request, "The username or password is incorrect.")
-        return redirect('../login/')
+        return redirect('login')
     else:
         return render(request, 'login.html')
 
 
 def user_logout(request):
     logout(request)
-    return redirect('../../homepage/')
+    return redirect('home')
 
 
 @login_required()
-def user_profile(request):
-    user = request.user
+def user_profile(request, user_id):
+    user = User.objects.get(id=user_id)
     if request.method == 'POST':
         form = UserProfileForm(request.POST, isinstance=user)
         if form.is_valid():
@@ -64,9 +64,9 @@ def user_profile(request):
 
 
 @login_required()
-def edit_user_profile(request):
+def edit_user_profile(request, user_id):
+    user = User.objects.get(id=user_id)
     if request.method == "POST":
-        user = request.user
         username = request.POST.get("username")
         email = request.POST.get("email")
 
@@ -82,6 +82,6 @@ def edit_user_profile(request):
         user.email = email
         user.save()
         messages.success(request, "Your profile has been edited successfully.")
-        return redirect("../profile/")
+        return redirect('user_profile', user_id=user.id)
 
-    return render(request, "EditUserProfile.html", {"user": request.user})
+    return render(request, "EditUserProfile.html", {"user": user})

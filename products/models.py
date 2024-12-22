@@ -26,4 +26,4 @@ class Product(models.Model):
     created_at = models.DateTimeField(default=timezone.now, verbose_name='created_at')
 
     def __str__(self):
-        return f"{self.name}, {self.price}, ma{self.stock}"
+        return f"{self.name}, {self.price}"

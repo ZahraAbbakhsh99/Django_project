@@ -12,7 +12,13 @@
         <p>{{ product.description }}</p>
         <h4>Price: {{ product.price }} IRI</h4>
         <h5>Stock: {{ product.stock }}</h5>
-        <a href={% url 'add_to_card' product_id=product.id %} class="btn btn-primary">Add to Cart</a><br>
+         {% if user.is_authenticated %}
+           <a href="{% url 'add_to_card' product.id %}" class="btn btn-primary">Add to Cart</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn btn-primary" target="_self">register</a>
+            <a href="{% url 'login' %}" class="btn btn-primary" target="_self">login</a>
+        {% endif %}
+        <a href="{% url 'home' %}"  class="btn btn-primary" target="_self">Bake to homepage</a>
     </div>
 </body>
 </html>
