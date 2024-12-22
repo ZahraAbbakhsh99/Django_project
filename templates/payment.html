@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+</head>
+<body>
+     <div style="text-align: center; margin-top: 100px;">
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your purchase. Your order has been placed successfully.</p>
+
+        <a href="{% url 'confirm_order' order.id %}" style="display: inline-block; padding: 10px 20px; margin-top: 20px;
+        background-color: green; color: white; text-decoration: none; border-radius: 5px;">confirmation</a><br>
+
+         <a href="{% url 'home' %}" class="btn btn-primary">Back to home</a>
+    </div>
+</body>
+</html>

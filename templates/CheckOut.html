@@ -8,12 +8,12 @@
 <body>
      <div class="container">
         <h2>order registration</h2>
-        <form method="post">
+        <form method="POST" >
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">order registration</button><br>
-            <a href="../cart">back to cart</a><br>
-            <a href="../orderhistory/">my order history</a>
+            <button type="submit" class="btn btn-primary">payment</button><br>
+            <a href="{% url 'cart' user.id %}">back to cart</a><br>
+            <a href="{% url 'user_order_history' user.id %}">my order history</a>
         </form>
     </div>
 </body>

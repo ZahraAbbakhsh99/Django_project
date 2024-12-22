@@ -26,7 +26,6 @@
 
         </ul>
         <h4 class="mt-4">total cost: {{ order.total_price }} IRI</h4>
-        <a href="#" class="btn btn-success mt-3">payment</a>
          <a href="{% url 'checkout' user.id %}" class="btn btn-success mt-3">checkout</a><br><br>
          <a href="{% url 'user_profile' user.id %}">Back to profile</a><br>
          <a href="{% url 'home' %}">Back to homepage</a>

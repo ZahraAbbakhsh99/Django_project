@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from products.models import Product
 from users.models import User
 from .models import *
-from .forms import *
+from .forms import AddressForm
 
 
 # Create your views here.
@@ -21,7 +21,7 @@ def card_view(request, user_id):
 @login_required()
 def add_to_card(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    order = Order.objects.get(user=request.user, status='PENDING')
+    order, created = Order.objects.get_or_create(user=request.user, status='PENDING')
     order.save()
     order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
     if created:
@@ -52,10 +52,14 @@ def remove_from_cart(request, order_id, item_id):
 
 @login_required()
 def checkout_view(request, user_id):
-    order = Order.objects.filter(user=request.user, status='PENDING').first()
-    if not order or not order.items.exists():
+    user = User.objects.get(id=user_id)
+    order = Order.objects.get(user=user, status='PENDING')
+    items = OrderItem.objects.filter(order=order)
+    is_empty = True if items.count() == 0 else False
+    if is_empty:
         messages.error(request, 'Your shopping cart is empty')
         return redirect('cart')
+    form = AddressForm()
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
@@ -64,28 +68,31 @@ def checkout_view(request, user_id):
             order.status = 'PENDING'
             order.save()
             messages.success(request, 'Your order has been registered. Please go to the payment page.')
-            return redirect('orderconfirmation', order_id=order.id)
-    else:
-        form = forms.AdderssForm()
+            return redirect('payment', order_id=order.id)
+
     return render(request, 'CheckOut.html', {'form': form, 'order': order})
 
 
 @login_required()
-def user_order_history(request):
-    orders = Order.objects.filter(user=request.user).order_by('created_at')
+def user_order_history(request, user_id):
+    user = User.objects.get(id=user_id)
+    orders = Order.objects.filter(user=user).order_by('order_date')
     return render(request, 'OrderHistoryView.html', {'orders': orders})
 
 
 @login_required()
 def confirm_order(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'OrderConfirmationView.html', {'order': order})
+
+
+@login_required()
+def payment(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
     if order.status == 'PENDING':
         order.status = 'PAID'
         order.save()
     else:
-        return redirect('cart')
-
-    return render(request, 'OrderConfirmationView.html', {'order': order})
-
-
+        return redirect('cart', user_id=request.user.id)
+    return render(request, 'payment.html', {'order': order})
 

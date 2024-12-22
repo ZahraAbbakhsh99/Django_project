@@ -14,9 +14,9 @@
         <p>order number: {{ order.id }}</p>
         <p>total cost: {{ order.total_price }} IRI</p>
 
-        <a href="../orderhistory/" class="btn btn-primary">View my orders</a><br><br>
-        <a href="../../orders/cart">go to cart</a><br>
-        <a href="../../homepage">Bake to homepage</a>
+        <a href="{% url 'user_order_history' user.id %}" class="btn btn-primary">View my orders</a><br><br>
+        <a href="{% url 'cart' user.id %}">go to cart</a><br>
+        <a href="{% url 'home' %}">Bake to homepage</a>
     </div>
 </body>
 </html>
